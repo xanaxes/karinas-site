@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Independent Companion Profile</title>
+    
+    <!-- Tailwind CSS (Styling Framework) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Dynamic Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                }
+            },
+            // We safelist these patterns so you can switch themeColor in the JS config below
+            // and Tailwind will still generate the correct CSS classes.
+            safelist: [
+                { pattern: /text-(rose|fuchsia|purple|amber|red)-(400|500|600)/ },
+                { pattern: /bg-(rose|fuchsia|purple|amber|red)-(400|500|600|900)/ },
+                { pattern: /border-(rose|fuchsia|purple|amber|red)-(500|900)/ },
+            ]
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-300 font-sans selection:bg-rose-900 selection:text-white">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-neutral-900/90 backdrop-blur-md border-b border-neutral-800">
+        <div class="max-w-6xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
+            <div id="nav-name" class="text-2xl font-serif tracking-widest text-white cursor-pointer">
+                <!-- Name injected by JS -->
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest">
+                <a href="#bio" class="transition-colors duration-300 hover:text-white">Bio</a>
+                <a href="#gallery" class="transition-colors duration-300 hover:text-white">Gallery</a>
+                <a href="#rates" class="transition-colors duration-300 hover:text-white">Rates</a>
+                <a href="#contact" class="transition-colors duration-300 hover:text-white">Contact</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                <i data-lucide="chevron-down"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-900 border-b border-neutral-800 p-4 flex flex-col space-y-4 text-center">
+            <a href="#bio" class="mobile-link uppercase tracking-widest text-sm py-2">Bio</a>
+            <a href="#gallery" class="mobile-link uppercase tracking-widest text-sm py-2">Gallery</a>
+            <a href="#rates" class="mobile-link uppercase tracking-widest text-sm py-2">Rates</a>
+            <a href="#contact" class="mobile-link uppercase tracking-widest text-sm py-2">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-32 pb-16 md:pt-48 md:pb-32 px-4 overflow-hidden">
+        <!-- Background Gradient -->
+        <div class="absolute inset-0 z-0 opacity-20">
+            <div id="hero-bg-gradient" class="absolute inset-0 bg-gradient-to-b from-rose-900/20 to-neutral-950"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10 grid md:grid-cols-2 gap-12 items-center">
+            <!-- Text Content -->
+            <div class="order-2 md:order-1 text-center md:text-left space-y-6">
+                <h1 id="hero-name" class="text-5xl md:text-7xl font-serif text-white tracking-tight">
+                    <!-- Name injected by JS -->
+                </h1>
+                <p id="hero-tagline" class="text-xl md:text-2xl font-light tracking-wide text-rose-500">
+                    <!-- Tagline injected by JS -->
+                </p>
+                <div class="flex items-center justify-center md:justify-start space-x-2 text-neutral-400">
+                    <i data-lucide="map-pin" class="w-4 h-4"></i>
+                    <span id="hero-location"><!-- Location --></span>
+                </div>
+                
+                <div class="pt-6 flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#contact" id="btn-book" class="px-8 py-3 bg-rose-600 text-white uppercase tracking-widest hover:opacity-90 transition-all text-sm font-medium">
+                        Book Now
+                    </a>
+                    <a href="#gallery" class="px-8 py-3 border border-neutral-700 hover:border-white text-white uppercase tracking-widest transition-all text-sm font-medium">
+                        View Gallery
+                    </a>
+                </div>
+            </div>
+
+            <!-- Hero Image -->
+            <div class="order-1 md:order-2 flex justify-center">
+                <div class="relative w-full max-w-md aspect-[3/4] group">
+                    <div id="hero-frame" class="absolute inset-0 border border-rose-500/30 transform translate-x-4 translate-y-4 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"></div>
+                    <img id="hero-image" src="" alt="Main Portrait" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-6xl mx-auto px-4 py-16 space-y-24">
+        
+        <!-- BIO & STATS SECTION -->
+        <section id="bio" class="grid md:grid-cols-12 gap-12">
+            <!-- Stats Column -->
+            <div class="md:col-span-4 space-y-8">
+                <div class="bg-neutral-900 p-8 border border-neutral-800">
+                    <h3 id="stats-title" class="text-xl font-serif text-white mb-6 flex items-center gap-2 text-rose-500">
+                        <i data-lucide="star" class="w-5 h-5"></i> Statistics
+                    </h3>
+                    <ul id="stats-list" class="space-y-4 text-sm tracking-wide">
+                        <!-- Stats injected by JS -->
+                    </ul>
+                </div>
+
+                <!-- Fetishes Tags -->
+                <div class="bg-neutral-900 p-8 border border-neutral-800">
+                    <h3 id="fetish-title" class="text-xl font-serif text-white mb-6 flex items-center gap-2 text-rose-500">
+                        <i data-lucide="heart" class="w-5 h-5"></i> Fetishes & Interests
+                    </h3>
+                    <div id="fetishes-list" class="flex flex-wrap gap-2">
+                        <!-- Tags injected by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Biography Text -->
+            <div class="md:col-span-8">
+                <h2 id="bio-header" class="text-3xl md:text-4xl font-light uppercase tracking-widest text-rose-500 mb-8 border-b border-rose-900/50 pb-4">
+                    Biography
+                </h2>
+                <div id="bio-content" class="prose prose-invert prose-lg text-neutral-400 font-light leading-relaxed space-y-6">
+                    <!-- Bio paragraphs injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- GALLERY SECTION -->
+        <section id="gallery">
+            <h2 id="gallery-header" class="text-3xl md:text-4xl font-light uppercase tracking-widest text-rose-500 mb-8 border-b border-rose-900/50 pb-4">
+                Gallery
+            </h2>
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <!-- Gallery images injected by JS -->
+            </div>
+        </section>
+
+        <!-- RATES SECTION -->
+        <section id="rates">
+            <h2 id="rates-header" class="text-3xl md:text-4xl font-light uppercase tracking-widest text-rose-500 mb-8 border-b border-rose-900/50 pb-4">
+                Donation & Rates
+            </h2>
+            <div id="rates-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Rates injected by JS -->
+            </div>
+            <p class="text-center text-neutral-500 mt-8 text-sm italic">
+                * Screening is required for all new clients. Rates subject to change for travel or specific requests.
+            </p>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="max-w-2xl mx-auto text-center bg-neutral-900 p-12 border border-neutral-800 relative overflow-hidden">
+            <div id="contact-bar" class="absolute top-0 left-0 w-full h-1 bg-rose-600"></div>
+            
+            <h2 class="text-3xl font-serif text-white mb-8">Contact Me</h2>
+            <p class="text-neutral-400 mb-8 font-light">
+                Please include your name, age, requested date/time, and references if available.
+            </p>
+            
+            <div class="space-y-6">
+                <div class="flex items-center justify-center space-x-4">
+                    <div id="phone-icon-box" class="p-3 bg-neutral-800 rounded-full text-rose-500">
+                        <i data-lucide="phone" class="w-6 h-6"></i>
+                    </div>
+                    <span id="contact-phone" class="text-xl md:text-2xl text-white tracking-widest">
+                        <!-- Phone -->
+                    </span>
+                </div>
+
+                <div class="flex items-center justify-center space-x-4">
+                    <div id="mail-icon-box" class="p-3 bg-neutral-800 rounded-full text-rose-500">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                    </div>
+                    <span id="contact-email" class="text-lg md:text-xl text-white">
+                        <!-- Email -->
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-6 mt-8 pt-8 border-t border-neutral-800">
+                    <a id="social-twitter" href="#" target="_blank" class="text-neutral-500 hover:text-white transition-colors hidden"><i data-lucide="twitter"></i></a>
+                    <a id="social-instagram" href="#" target="_blank" class="text-neutral-500 hover:text-white transition-colors hidden"><i data-lucide="instagram"></i></a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-neutral-900 py-12 text-center">
+        <p class="text-neutral-600 text-sm uppercase tracking-widest">
+            &copy; <span id="copyright-year"></span> <span id="copyright-name"></span> | Independent Companion
+        </p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
